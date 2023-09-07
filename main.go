@@ -33,6 +33,12 @@ func main() {
 	h2 := func(w http.ResponseWriter, r *http.Request) {
 		log.Print("HTMX req received")
 		log.Print(r.Header.Get("HX-Request"))
+		title := r.PostFormValue("title")
+		director := r.PostFormValue("director")
+		log.Print(title, director)
+		htmlStr := fmt.Sprintf("<li>%s - %s</li>", title, director)
+		tmpl, _ := template.New("t").Parse(htmlStr)
+		tmpl.Execute(w, nil)
 	}
 	http.HandleFunc("/", h1)
 	http.HandleFunc("/add-film/", h2)

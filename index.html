@@ -14,7 +14,7 @@
           <div >
               <h1 >Film List</h1>
           
-              <ul >
+              <ul id="film-list">
                   {{ range .Films }}
                   {{ block "film-list-element" .}}
                       <li>{{ .Title }} - {{ .Director }}</li>
@@ -26,7 +26,7 @@
           <div>
               <h1 >Add Film</h1>
   
-              <form hx-post="/add-film/">
+              <form hx-post="/add-film/" hx-target="#film-list" hx-swap="beforeend">
                   <div>
                       <label for="film-title">Title</label>
                       <input type="text" name="title"/>

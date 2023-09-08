@@ -36,9 +36,12 @@ func main() {
 		title := r.PostFormValue("title")
 		director := r.PostFormValue("director")
 		log.Print(title, director)
-		htmlStr := fmt.Sprintf("<li>%s - %s</li>", title, director)
-		tmpl, _ := template.New("t").Parse(htmlStr)
-		tmpl.Execute(w, nil)
+		// htmlStr := fmt.Sprintf("<li>%s - %s</li>", title, director)
+		// tmpl, _ := template.New("t").Parse(htmlStr)
+		// tmpl.Execute(w, nil)
+		tmpl := template.Must(template.ParseFiles("index.html"))
+		tmpl.ExecuteTemplate(w, "film-list-element", Film{Title: title, Director: director})
+
 	}
 	http.HandleFunc("/", h1)
 	http.HandleFunc("/add-film/", h2)
